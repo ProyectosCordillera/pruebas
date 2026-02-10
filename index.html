@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Reserva - Condominio Sundara</title>
+
+<!-- 🔥 SOLUCIÓN CACHÉ: Meta tags para evitar caché -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+  
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* ------------------ Estilos generales ------------------ */
+        body {
+            font-family: Arial, sans-serif;          
+            padding: 10px;
+            line-height: 1.4;
+            font-size: 14px;
+            background-color: #f8f9fa;
+        }
+
+        .logo-container {
+            margin-left: -15px;
+            padding-left: 0;
+        }
+
+        /* Este es el contenedor principal que debes modificar */
+        #Hoja1.container {
+            width: 8.5in;
+            min-height: 11in;
+            max-width: 8.5in;
+            margin: 20px auto;
+            padding: 0.5in;
+            border-radius: 5px;
+            text-align: justify; /* Esta línea justifica el texto */
+            background-color: white;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        /* ------------------ Texto y párrafos ------------------ */
+        .Cuerp1 {
+            font-size: 14px;
+            text-align: justify;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        /* ------------------ Dropdowns personalizados ------------------ */
+        .dropdown-custom-Incluye,
+        .dropdown-custom-Tipoparqueo,
+        .dropdown-custom-TipoApto,
+        .dropdown-custom-Estado,
+        .dropdown-custom-Torre,
+        .dropdown-custom-Apto,
+        .dropdown-custom-Piso,
+        .dropdown-custom-Dia,
+        .dropdown-custom-Mes,
+        .dropdown-custom-Ano,
+        .dropdown-custom-Casa,
+        .dropdown-Tipo-casa {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            border: none;
+            outline: none;
+            vertical-align: bottom;
+            margin: 0 3px;
+            padding: 0 2px;
+            background: transparent;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-bottom: 1px solid #000;
+            min-height: 24px;
+        }
+
+        .dropdown-custom-Torre {
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .dropdown-custom-Casa {
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            border-bottom: none !important;
+            outline: none !important;
+        }
+        .dropdown-custom-Piso {
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .dropdown-custom-Estado { min-width: 80px; }
+        .dropdown-custom-Dia    { min-width: 10px; text-align: center; }
+        .dropdown-custom-Mes    { min-width: 80px; text-align: center; }
+        .dropdown-custom-Ano    { min-width: 40px; text-align: center; }
+
+        /* ------------------ Encabezado ------------------ */
+        .Encabe {
+            font-family: Arial, sans-serif;
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        /* ------------------ Encabezado 2 ------------------ */
+        .Encabe2 {
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
+        /* ------------------ Campos de texto con subrayado ------------------ */
+
+        .underline,
+        .underline-lote,
+        .underlineId,
+        .underlineNumcuota,
+        .underlinetel1,
+        .underlinetel2,
+        .underlineNacionalidad,
+        .underlineMontoLetras,
+        .underlineDireccion,
+        .underlineDireccion2,
+        .underlineddl,
+        .underlineP,
+        .underline-direcionbanco,
+        .underlineNombre,
+        .underlineMontos {
+            display: inline-block;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            text-decoration: none;
+            border: none;
+            border-bottom: 1px solid #000;
+            background-color: transparent;
+            outline: none;
+            height: 16px;
+            vertical-align: bottom;
+            margin: 0 3px;
+            padding: 0 2px;
+        }
+
+        .connected-input {
+            display: inline-block;
+        }
+
+        .address-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        /* Anchos específicos */
+        .underlineNumcuota {
+            width: 40px;
+            min-width: 40px;         
+        }
+        .underline-lote {
+            width: 80px;
+            min-width: 80px;
+        }
+        .underline-tipocasa {
+            width: 80px;
+            min-width: 80px;
+            font-weight: bold;
+        }
+        .underlineId {
+            width: 120px;
+            min-width: 120px;
+        }
+        .underlinetel1 {
+            width: 120px;
+            min-width: 120px;
+        }
+        .underlinetel2 {
+            width: 120px;
+            min-width: 120px;
+        }
+        .underlineNombre {
+            width: 390px;
+            min-width: 390px;
+        }
+        .underline-direcionbanco {
+            width: 450px;
+            min-width: 450px;
+        }
+        .underlineMontoLetras {
+            width: 330px;
+            min-width: 330px;
+        }
+        .underlineMontos {
+            width: 120px;
+            min-width: 120px;
+            text-align: right;
+            font-family: monospace;
+        }
+        .underlineNacionalidad {
+            width: 250px;
+            min-width: 250px;
+        }
+
+        .underline {
+            width: 150px;
+            min-width: 150px;
+        }
+
+        .underlineDireccion {
+            width: 400px;
+            min-width: 400px;
+        }
+
+        .underlineDireccion2 {
+            width: 200px;
+            min-width: 200px;
+        }
+
+        .underlineddl {
+            width: 30px;
+            min-width: 30px;
+            max-width: 40px;
+            text-align: center;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .underlineP {
+            width: 300px;
+            min-width: 300px;
+        }
+
+        /* ------------------ Radios ------------------ */
+        .radio-custom {
+            margin: 0 3px;
+            position: relative;
+            top: 2px;
+        }
+        .radio-group { display: inline; }
+
+        /* ------------------ Secciones y alineación ------------------ */
+        .form-inline-element { display: inline-block; vertical-align: baseline; }
+        .section { margin-bottom: 15px; }
+        .section-title { font-weight: bold; margin-bottom: 8px; }
+        .apartment-types { font-size: 13px; line-height: 1.4; margin-bottom: 10px; }
+
+        .two-column-table {
+            width: 100%;           
+            table-layout: fixed;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .left-column {
+            text-align: left;
+            vertical-align: top;
+            width: 65%;
+            padding-right: 10px;
+        }
+
+        .right-column {
+            text-align: right;  
+            vertical-align: middle;
+            width: 35%;
+        }
+
+        .right-column-content {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+        }
+
+        .date-input {
+            font-size: 14px;
+            width: 90px;            
+            border: none;
+            border-bottom: 1px solid #000;
+            background-color: transparent;
+            padding: 0;
+            margin: 0 3px;
+            transition: all 0.3s;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-bottom: 2px solid #0d6efd;
+        }
+
+        /* ------------------ Firmas ------------------ */
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0 30px 0;
+        }
+
+        .signature-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000000;
+            width: 250px;
+            margin-bottom: 8px;
+        }
+
+        .signature-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 3px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .signature-info {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.2;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* ------------------ Responsive ------------------ */
+        @media (max-width: 900px) {
+            .underlineNombre, 
+            .underline-direcionbanco { width: 300px; min-width: 300px; }
+            .underline { width: 120px; min-width: 120px; }
+            .underlineDireccion { width: 250px; min-width: 250px; }
+            #Hoja1.container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0.3in;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .form-container { padding: 10px; }
+            .Encabe { font-size: 18px; }
+            .signature-section {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        /* ------------------ Estilos de impresión ------------------ */
+        @media print {
+              @page {
+                margin: 0;
+                size: auto;
+              }
+            body {
+                padding: 0;
+                margin: 0;
+                background-color: white;
+            }
+            .chbAplica {
+                display: none !important;
+            }
+            
+            #Hoja1.container {
+                box-shadow: none;
+                max-width: 100%;
+                padding: 0.5in;
+                min-height: auto;
+            }
+            
+            .signature-section { margin: 20px 0 15px 0; }
+
+            .page-break {
+                margin-top: 1.5cm !important; 
+                page-break-after: always;
+            }
+            .page-break:last-child {
+                page-break-after: auto;
+            }
+
+            /* Evitar cortes en firmas */
+            .signature-section { page-break-inside: avoid; }
+
+            /* Margen superior en página 2 */
+            #pagina2 { padding-top: 2cm; }
+            
+            /* Hide non-essential elements for print */
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        /* Checkbox custom styling */
+        .custom-checkbox {
+            display: inline-flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .custom-checkbox input {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+        
+        /* Panel de descuento */
+        .mensaje-descuento {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* Botones de acción */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn-action {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-print {
+            background-color: #2196f3;
+            color: white;
+            border: none;
+        }
+        
+        .btn-print:hover {
+            background-color: #1976d2;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .btn-reset {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-reset:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .btn-save {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+        }
+        
+        .btn-save:hover {
+            background-color: #388e3c;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Page indicator for screen view */
+        .page-indicator {
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .no-print {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        /* Highlight required fields */
+        .required {
+            color: #d32f2f;
+            font-weight: bold;
+            margin-left: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print action-buttons">
+        <button class="btn-action btn-print" onclick="window.print()">
+            <span>🖨️</span> Imprimir Documento
+        </button>
+        <button class="btn-action btn-save" onclick="saveAsPDF()">
+            <span>💾</span> Guardar como PDF
+        </button>
+        <button class="btn-action btn-reset" onclick="resetForm()">
+            <span>↺</span> Limpiar Formulario
+        </button>
+    </div>
+    
+    <div id="Hoja1" class="container py-3">
+        <div id="PAgina1">
+            <div id="Encabezado">
+                <!-- Logo centrado -->
+               <div class="logo-container d-flex justify-content-start">
+                    <img src="img/Logo-Sundara.jpg" class="img-fluid" alt="Logo Sundara" style="max-height:70px;">
+                </div>
+                <br /> 
+                <!-- Primera fila -->
+                <div class="d-flex justify-content-center align-items-center mb-2 text-center gap-2">    
+                    <h2 class="h5 mb-0 Encabe">RECIBO DE RESERVA</h2>
+                </div>
+            <div class="d-flex justify-content-center align-items-center gap-2 text-center">
+                <h3 class="h7 mb-0 Encabe2">CASA NÚMERO</h3>
+                <select id="ddlcasaNumero" class="form-select w-auto dropdown-custom-Casa">
+                    <option value="">...</option>
+                </select>
+            </div>
+                <br />
+                <div id="CuerpoHoja1" class="Cuerp1">   
+                    Hemos recibido de <input type="text" id="txtNombre" class="underlineNombre" placeholder="Nombre completo">, 
+                    estado civil <select id="ddlEstado" class="dropdown-custom-Estado">
+                        <option value="">Soltero(a)</option>                     
+                        <option>Casado(a)</option>
+                        <option>Divorciado(a)</option>
+                        <option>Viudo(a)</option>
+                    </select>,
+                    de oficio 
+                    <input type="text" id="txtOficio" class="underline" placeholder="Oficio">, 
+                    vecino de 
+                    <input type="text" id="txtDireccion" class="underlineDireccion connected-input" 
+                           onkeyup="moveToNext(this, event)" maxlength="50" placeholder="Dirección línea 1">
+                    <input type="text" id="txtDireccion2" class="underlineDireccion2 connected-input" 
+                           onkeyup="moveToPrevious(this, event)" maxlength="50" placeholder="Dirección línea 2">
+                    nacionalidad
+                    <input type="text" id="txtNacionalidad2" class="underlineNacionalidad" placeholder="Nacionalidad">, 
+                    <select id="ddlTipoId" class="dropdown-custom-Estado">
+                        <option value="">ID</option>
+                        <option>Cédula</option>
+                        <option>Pasaporte</option>
+                        <option>Otros</option>
+                    </select>,
+                    número 
+                    <input type="text" id="txtCedula" class="underlineId" placeholder="Número de identificación">, 
+                    teléfono celular 
+                    <input type="tel" id="txtCelular" class="underlinetel1" placeholder="Teléfono celular">, 
+                    teléfono #2 
+                    <input type="tel" id="txtTelefono2" class="underlinetel2" placeholder="Teléfono adicional">,
+                    correo electrónico #1 
+                    <input type="email" id="txtEmail1" class="underline" style="width:200px" placeholder="correo1@example.com">, 
+                    correo electrónico #2 
+                    <input type="email" id="txtEmail2" class="underline" style="width:200px" placeholder="correo2@example.com">, 
+                    en adelante denominado el "CLIENTE", la suma de
+                    <input type="text" id="txtMonto" class="underlineMontoLetras" placeholder="Monto en letras">, 
+                    dólares EEUU (USD$ <input type="text" id="txtMontoUSD" class="underline" style="width:100px" placeholder="0.00">). 
+                    Este pago lo realiza el CLIENTE como reserva y a cuenta del precio de la casa finca filial  
+                    <input type="text" id="txtNumeroCasa" class="underline" readonly>, 
+                    con un lote de <input type="text" id="txtlote" class="underline-lote" readonly> 
+                    y una casa tipo 
+                    <select id="ddltipocasa" class="dropdown-Tipo-casa">
+                        <option value="">Tipo 1</option>                       
+                        <option value="2">Tipo 2</option>
+                        <option value="3A">Tipo 3-A</option>
+                        <option value="3B">Tipo 3-B</option>
+                    </select>
+                    del 
+                    condominio Sundara, ubicado en San Joaquín de Flores de la Firestone 200 mts norte.
+                    
+                    <br />   <br />
+                    <b>El Proyecto tiene los siguientes tipos de casas:</b>
+                    <br />   <br />
+                    <b>Tipo 1)</b>:  De un nivel con 100.00 m2 de construcción, con un área de catastro de lote desde 112,00 m2.
+                    
+                    Consta de sala-comedor-cocina, lavandería, estacionamiento para dos vehículos y patio, habitación principal con su baño completo y walk-in closet, habitación secundaria y segundo baño completo.
+                    <br />   <br />
+                    <b>Tipo 2)</b>:  De dos niveles con 160.00 m2 de construcción, con un área de catastro de lote desde 110,00 m2.
+                    
+                    En primer piso consta de sala-comedor-cocina, medio baño de visitas, escalera, lavandería, estacionamiento para dos vehículos, bodega y patio; en el segundo piso consta de habitación principal con su baño completo y walk-in closet, segunda habitación, tercera habitación, área para televisión, segundo baño completo y escaleras.
+                    <br /><br />
+                    <b> Tipo 3-A)</b> De dos niveles con 136.00 m2 de construcción, con un área de catastro de lote desde
+                    110,00 m2. En primer piso consta de sala-comedor-cocina, medio baño de visitas,
+                    escalera, lavandería, estacionamiento para dos vehículos, bodega y patio;
+                    en el segundo piso consta de habitación principal con su baño completo y walk-in closet,
+                    segunda habitación, área para televisión, segundo baño completo y escaleras.<br /><br />
+
+                    <b>Tipo 3-B)</b> De dos niveles con 136.00 m2 de construcción, con un área de catastro de lote desde
+                    110,00 m2. En primer piso consta de sala-comedor-cocina, medio baño de visitas,
+                    escalera, lavandería, estacionamiento para dos vehículos, bodega y patio;
+                    en el segundo piso consta de habitación principal con su baño completo y walk-in closet,
+                    segunda habitación, tercera habitación, segundo baño completo y escaleras.<br /><br />
+                </div>
+            </div>
+        </div>
+        </br>
+         </br>
+        <div id="pagina2" class="page-break">  
+          <div class="page-indicator no-print text-end">Página 2 de 3</div>
+            <!-- PRIMERA: Precio y forma de pago -->
+            <u><b>PRIMERA</b></u>:    
+            El precio de la casa es de <input type="text" class="underlineP" placeholder="Precio en texto"> 
+            00/100 dólares EEUU (USD$ <input type="text" id="TextBox0" class="underlineMontos" placeholder="0.00">), 
+            que serán pagados por EL CLIENTE de la siguiente manera:
+            <br /> 
+            
+            <table class="two-column-table">
+                <tr>
+                    <td class="left-column">- Un pago de Reserva el
+                        <input type="date" class="date-input" id="fechaReserva">
+                    </td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="txtmonto1" class="underlineMontos" placeholder="0.00">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left-column">- Un pago para firma de Contrato el día
+                        <input type="date" class="date-input" id="fechaContrato">
+                    </td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="TextBox2" class="underlineMontos" placeholder="0.00">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left-column">- 22 cuotas mensuales consecutivas el
+                        <input type="number" id="txtnumcuota" class="underlineNumcuota" min="1" max="31" placeholder="15"> de cada mes
+                    </td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="TextBox3" class="underlineMontos" placeholder="0.00">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left-column">- 2 cuotas extraordinarias c/u en los meses 12, 24 de</td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="TextBox4" class="underlineMontos" placeholder="0.00">
+                        </div>
+                    </td>
+                </tr>
+            </table>       
+                            
+            <div class="custom-checkbox no-print">
+                <input type="checkbox" id="chbxAplicar" class="chbAplica">
+                <label for="chbxAplicar">Aplicar</label>
+            </div>
+            <br />
+
+            <div id="pnlMensajeDescuento" class="mensaje-descuento" style="display:none;">
+                Reducción de precio: Sí y solo Sí, el cliente cumple con todas las fechas y montos establecidas en el 
+                plan de pagos, se le reconocerá un descuento de USD 
+                <input type="text" id="txtreduceprecio" class="underlineMontoLetras" style="width:100px" placeholder="0.00">
+                al momento de la Formalización.
+            </div>
+
+            La cancelación del saldo de formalización se hará a la firma de la escritura.               
+            <br />    
+             <br />   
+            <!-- SEGUNDA: -->
+            <u><b>SEGUNDA</b></u>: 
+            Esta Reserva es intransferible y tiene una validez de 8 días naturales contados a partir de la fecha de su firma, 
+            plazo dentro del cual EL CLIENTE deberá suscribir la Opción de Compra correspondiente.
+             <br />   
+             <br />   
+            <!-- TERCERA: -->
+            <br />       
+            <u><b>TERCERA</b></u>: 
+            Serán desistimientos unilaterales por parte del CLIENTE, los casos siguientes:
+            <ol>
+                <li class="list-item text-justify">
+                    EL CLIENTE, tendrá ocho días naturales para retirarse de la transacción sin ninguna penalidad, debiendo notificar por escrito al DESARROLLADOR en su oficina ubicada en Centro Corporativo Lindora, oficina 35, Pozos de Santa Ana. Por lo anterior se le devolverá el 100% del monto de esta Reserva. En el caso de que este pago se haya realizado por medio de tarjeta de crédito, se devolverá la reserva menos los costos por comisiones y otros gastos que cobre el Banco respectivo. De acuerdo a lo anterior, esta Reserva quedará anulada y el DESARROLLADOR quedará libre de toda responsabilidad y con el derecho de disponer libremente de la casa.
+                </li>
+                <li class="list-item text-justify">
+                    Después de transcurridos 8 días naturales desde la fecha de la firma de esta Reserva sin que se haya firmado Opción de Compra, EL CLIENTE notifica por escrito al DESARROLLADOR que desea retirarse del negocio, esta Reserva quedará anulada y el DESARROLLADOR quedará libre de toda responsabilidad y le dará derecho a tomar para sí el 50% del dinero recibido para gastos administrativos, comisiones de ventas y como penalidad, así como a disponer libremente de la casa.
+                </li>
+                <li class="list-item text-justify">
+                    Si transcurrido el plazo de 15 días naturales de validez de esta Reserva EL CLIENTE no se presenta a suscribir el contrato de Opción de Compra, esta Reserva quedará anulada y EL DESARROLLADOR tendrá derecho a tomar para sí el 100% del dinero recibido y a disponer libremente de la casa.
+                </li>
+            </ol>
+               </div>
+              <div id="pagina3" class="page-break">
+              <div class="page-indicator no-print text-end">Página 3 de 3</div>     
+            <!-- CUARTA:  -->
+            <u><b>CUARTA</b></u>: 
+            Desistimiento unilateral por parte del DESARROLLADOR:
+            
+            En caso de que Urbano Condominio S.A. desista de la presente Reserva procederá a notificar 
+            mediante correo electrónico y deberá reintegrar a EL CLIENTE en un lapso de 8 días naturales, la cantidad 
+            recibida más un monto equivalente al 100% del dinero recibido en esta Reserva como indemnización total por 
+            daños y perjuicios a favor de EL CLIENTE; en este caso esta Reserva quedará anulada y EL DESARROLLADOR 
+            tendrá derecho a disponer libremente de la casa.              
+            En el caso de que el Fiduciario no acepte a EL CLIENTE para incorporarse al Fideicomiso de Primas, 
+            se procederá a la devolución a EL CLIENTE del monto pagado por este último en un plazo de 30 días, menos los 
+            gastos de comisión de tarjeta de credito si los hubiere, sin que el DESARROLLADOR deba pagar alguna indemnización a EL CLIENTE.
+            
+            <br />     
+                  <br />  
+             
+            <!-- QUINTA:  -->
+            <u><b>QUINTA:</b></u>
+            Para efectos de pagos, depósitos, reintegros o devoluciones ambas partes se autorizan mutuamente para que se efectúen en las cuentas siguientes:<br />
+            EL DESARROLLADOR: Banco Nacional <b><u>I Etapa: IBAN CR48015100010026234639</u></b>, Banco Nacional <b><u>II Etapa IBAN CR39015100010026234898</u></b>.<br />
+            EL CLIENTE: Banco <input type="text" id="txtBancoCliente" class="underline" style="width:150px" placeholder="Banco"> 
+            N° de cuenta <input type="text" id="txtCuentaCliente" class="underline" style="width:150px" placeholder="Número de cuenta"><br />
+            
+            <b>Para transferencias al exterior completar:</b><br />
+            Dueño de la cuenta: <input type="text" id="txtDueñoCuenta" class="underline" style="width:200px" placeholder="Nombre del titular"> 
+            Cuenta N°: <input type="text" id="txtCuentaExterior" class="underline" style="width:150px" placeholder="Número de cuenta"><br />
+            Nombre del banco: <input type="text" id="txtNombreBanco" class="underline" style="width:200px" placeholder="Nombre del banco"><br />
+            ABA: <input type="text" id="txtABA" class="underline" style="width:100px" placeholder="ABA"> 
+            SWIFT: <input type="text" id="txtSWIFT" class="underline" style="width:100px" placeholder="SWIFT"><br />
+            Dirección del banco: <input type="text" id="txtDireccionBanco" class="underline-direcionbanco" style="width:300px" placeholder="Dirección del banco">
+                
+            <br />   
+                  <br />              
+            <!-- SEXTA:  -->
+            <u><b>SEXTA:</b></u>
+            
+            Durante el transcurso de toda la operación de compraventa y también
+            posteriormente, ambas partes, tanto el DESARROLLADOR como el CLIENTE están
+            obligados al cumplimiento de todas las leyes y normas que dicta la Superintendencia
+            General de Entidades Financieras (SUGEF). Por disposición de la SUGEF se incluye
+            el párrafo siguiente: "Se advierte al público que Urbano Condominio Sociedad
+            Anónima es supervisada solamente en materia de prevención de legitimación
+            de capitales, financiamiento al terrorismo y financiamiento de la proliferación de armas
+            de destrucción masiva, y además se encuentra sujeta a disposiciones vinculantes de
+            la Unidad de Inteligencia Financiera del Instituto Costarricense sobre Drogas. Por lo
+            tanto, la SUGEF no supervisa en materia financiera a Urbano Condominio Sociedad
+            Anónima, ni los negocios que ofrece, ni su seguridad, estabilidad o solvencia."
+            Con la firma de este documento de reserva el cliente se obliga a entregar copia y/o los
+            documentos y/o formularios firmados requeridos a continuación:
+            
+            <!-- FECHA Y FIRMA  -->
+            <br />  
+            De acuerdo con todo lo anterior, firmamos en San José el día
+            <select id="ddldia" class="dropdown-custom-Dia">
+                <option value="">Día</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+                <option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
+                <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option>
+                <option>26</option><option>27</option><option>28</option><option>29</option><option>30</option>
+                <option>31</option>
+            </select>
+            del mes de 
+            <select id="ddlmes" class="dropdown-custom-Mes">
+                <option value="">Mes</option>
+                <option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option>
+                <option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option>
+                <option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+            </select>
+            de 
+            <select id="ddlano" class="dropdown-custom-Ano">
+                <option value="">Año</option>
+                <option>2024</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option>
+            </select>.
+            
+            <br /><br />
+                    <br /><br />
+                    <br /><br />
+            
+            <div class="signature-section">
+                <!-- Firma izquierda -->
+                <div class="signature-area">
+                    <div class="signature-line"></div>
+                    <div class="signature-name">EL CLIENTE</div>
+                </div>
+                
+                <!-- Firma derecha -->
+                <div class="signature-area">
+                    <div class="signature-line"></div>
+                    <div class="signature-name">URBANO CONDOMINIO S.A.</div>
+                    <div class="signature-info">Cédula Jurídica 3-101-806533</div>
+                    <div class="signature-info">EL DESARROLLADOR</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="no-print" style="text-align:center; margin:30px 0; padding:15px; background:#e9ecef; border-radius:8px;">
+        <h4>✨ Formulario de Reserva Urbano ✨</h4>      
+    </div>
+
+    <!-- Bootstrap 5 JS + Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Función para configurar la replicación de dropdown a textbox
+        function setupDropdownReplication(dropdownId, textboxId) {
+            var select = document.getElementById(dropdownId);
+            var input = document.getElementById(textboxId);
+
+            if (select && input) {
+                select.addEventListener('change', function() {
+                    input.value = select.options[select.selectedIndex].text;
+                });
+
+                // Inicializar con el valor por defecto si existe
+                if (select.selectedIndex >= 0) {
+                    input.value = select.options[select.selectedIndex].text;
+                }
+            } else {
+                console.error('No se encontraron los controles: ' + dropdownId + ' o ' + textboxId);
+            }
+        }
+
+        // Configurar todas las replicaciones cuando el documento esté listo
+        document.addEventListener('DOMContentLoaded', function () {
+            // Replicar valor del dropdown de casa al campo de texto
+            setupDropdownReplication('ddlcasaNumero', 'txtNumeroCasa');
+            
+            // Establecer valores por defecto para las fechas
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('fechaReserva').value = formattedDate;
+
+            // Establecer fecha de contrato para 7 días después
+            const contractDate = new Date();
+            contractDate.setDate(today.getDate() + 7);
+            document.getElementById('fechaContrato').value = contractDate.toISOString().split('T')[0];
+            
+            // Configurar checkbox de descuento
+            const checkbox = document.getElementById('chbxAplicar');
+            const panel = document.getElementById('pnlMensajeDescuento');
+            
+            checkbox.addEventListener('change', function() {
+                panel.style.display = this.checked ? 'block' : 'none';
+            });
+            
+            // Inicializar estado del panel
+            panel.style.display = checkbox.checked ? 'block' : 'none';
+            
+            // Configurar evento para actualizar campos según la casa seleccionada
+            const ddlcasaNumero = document.getElementById('ddlcasaNumero');
+            const txtlote = document.getElementById('txtlote');
+            
+            ddlcasaNumero.addEventListener('change', function() {
+                var fincaValue = this.value;
+                
+                // Extraer el número del formato "FF-XX"
+                var numeroFinca = parseInt(fincaValue.replace('FF-', ''), 10);
+                
+                // Validar que sea un número válido
+                if (isNaN(numeroFinca)) {
+                    txtlote.value = "";
+                    return;
+                }
+                
+                // Lógica condicional CORREGIDA usando comparaciones numéricas
+                if (numeroFinca === 1) {
+                    txtlote.value = "110 m²";
+                } else if (numeroFinca >= 2 && numeroFinca <= 7) {
+                    txtlote.value = "119 m²";
+                } else if (numeroFinca >= 8 && numeroFinca <= 10) {
+                    txtlote.value = "110 m²";
+                } else if (numeroFinca >= 11 && numeroFinca <= 15) {
+                    txtlote.value = "119 m²";
+                } else if (numeroFinca >= 16 && numeroFinca <= 16) {
+                    txtlote.value = "110 m²";
+                } else if (numeroFinca >= 17 && numeroFinca <= 32) {
+                    txtlote.value = "112 m²";
+                } else if (numeroFinca >= 33 && numeroFinca <= 47) {
+                    txtlote.value = "110 m²";
+                } else if (numeroFinca >= 48 && numeroFinca <= 64) {
+                    txtlote.value = "110 m²";
+                } else if (numeroFinca === 65) {
+                    txtlote.value = "150 m²";
+                } else {
+                    txtlote.value = "";
+                }
+            });
+            
+            // Si hay un valor preseleccionado, actualizar el lote
+            if (ddlcasaNumero.value) {
+                ddlcasaNumero.dispatchEvent(new Event('change'));
+            }
+        });
+        
+       // Funciones para navegación entre campos de dirección
+function moveToNext(currentInput, event) {
+    const nextInput = document.getElementById('txtDireccion2');
+    // Solo saltar al siguiente campo cuando se alcanza el máximo de caracteres
+    if (currentInput.value.length >= currentInput.maxLength) {
+        nextInput.focus();
+    }
+}
+
+function moveToPrevious(currentInput, event) {
+    const prevInput = document.getElementById('txtDireccion');
+    // Si se presiona Backspace al inicio del segundo input
+    if (event.key === 'Backspace' && currentInput.selectionStart === 0 && currentInput.value === '') {
+        event.preventDefault();
+        prevInput.focus();
+        prevInput.selectionStart = prevInput.value.length;
+        prevInput.selectionEnd = prevInput.value.length;
+    }
+}
+        
+        // Función para limpiar el formulario
+        function resetForm() {
+            if (confirm('¿Está seguro que desea limpiar todo el formulario? Se perderán todos los datos ingresados.')) {
+                document.querySelectorAll('input, select, textarea').forEach(element => {
+                    if (element.type !== 'checkbox' && element.type !== 'radio') {
+                        element.value = '';
+                    } else {
+                        element.checked = false;
+                    }
+                });
+                
+                // Restablecer fechas
+                const today = new Date();
+                const formattedDate = today.toISOString().split('T')[0];
+                document.getElementById('fechaReserva').value = formattedDate;
+                
+                const contractDate = new Date();
+                contractDate.setDate(today.getDate() + 7);
+                document.getElementById('fechaContrato').value = contractDate.toISOString().split('T')[0];
+                
+                // Restablecer panel de descuento
+                document.getElementById('pnlMensajeDescuento').style.display = 'none';
+                
+                // Restablecer campo de lote
+                document.getElementById('txtlote').value = '';
+            }
+        }
+        
+        // Función para guardar como PDF (simulación - en realidad abre para imprimir)
+        function saveAsPDF() {
+            alert('Para guardar como PDF:\n1. Presione el botón "Imprimir Documento"\n2. En el cuadro de diálogo de impresión, seleccione "Guardar como PDF" como destino\n3. Haga clic en "Guardar"');
+            window.print();
+        }
+    </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const ddl = document.getElementById("ddlcasaNumero");
+
+    for (let i = 1; i <= 65; i++) {
+        const num = i.toString().padStart(2, '0');
+        ddl.innerHTML += `<option value="FF-${num}">FF-${num}</option>`;
+    }
+});
+</script>
+    
+</body>
+</html>
