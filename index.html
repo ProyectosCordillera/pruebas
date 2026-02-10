@@ -951,9 +951,9 @@ function moveToPrevious(currentInput, event) {
         }
         
         // Función para guardar como PDF (simulación - en realidad abre para imprimir)
-        function saveAsPDF() {
-            // Obtener el contenedor de la factura
-    const element = document.getElementById('invoice-container');
+    function saveAsPDF() {
+    // Obtener el contenedor correcto (ID: Hoja1)
+    const element = document.getElementById('Hoja1');
     
     // Configurar html2canvas
     html2canvas(element, {
@@ -975,9 +975,12 @@ function moveToPrevious(currentInput, event) {
         const imgHeight = canvas.height * imgWidth / canvas.width;
         
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        pdf.save('factura.pdf');
+        pdf.save('recibo-reserva.pdf');
+    }).catch(error => {
+        console.error('Error al generar PDF:', error);
+        alert('Ocurrió un error al generar el PDF. Por favor intente nuevamente.');
     });
-        }
+}
     </script>
 
 <script>
