@@ -961,20 +961,30 @@ function saveAsPDF() {
     // Obtener el elemento a convertir
     const element = document.getElementById('Hoja1');
     
-    // Opciones de configuración
+    // Opciones de configuración para formato carta y saltos de página
     const opt = {
-        margin: 10,
+        margin: 10, // Margen en mm
         filename: 'recibo-reserva.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { 
+            type: 'jpeg', 
+            quality: 0.98 
+        },
         html2canvas: { 
             scale: 2,
             useCORS: true,
-            logging: false
+            logging: false,
+            letterRendering: true,
+            allowTaint: false
         },
         jsPDF: { 
             unit: 'mm', 
-            format: 'a4', 
+            format: [215.9, 279.4], // Tamaño carta: 8.5" x 11" = 215.9mm x 279.4mm
             orientation: 'portrait'
+        },
+        pagebreak: {
+            mode: ['avoid-all', 'css', 'legacy'],
+            before: '#pagina2, #pagina3',
+            after: '.page-break'
         }
     };
     
