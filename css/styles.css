@@ -12,11 +12,12 @@ body {
     padding-left: 0;
 }
 
-/* Contenedor principal */
+
+/* Este es el contenedor principal que debes modificar */
 #Hoja1.container {
-    width: 8.5in;
+    width: 200mm; /* Cambia de 8.5in a 200mm (aprox. 7.87 pulgadas) */
     min-height: 11in;
-    max-width: 8.5in;
+    max-width: 200mm; /* También cambia max-width */
     margin: 20px auto;
     padding: 0.5in;
     border-radius: 5px;
