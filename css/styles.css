@@ -271,7 +271,6 @@ body {
     .underline-direcionbanco { width: 300px; min-width: 300px; }
     .underline { width: 120px; min-width: 120px; }
     .underlineDireccion { width: 250px; min-width: 250px; }
-    
     #Hoja1.container {
         width: 100%;
         max-width: 100%;
@@ -282,7 +281,6 @@ body {
 @media (max-width: 700px) {
     .form-container { padding: 10px; }
     .Encabe { font-size: 18px; }
-    
     .signature-section {
         flex-direction: column;
         gap: 30px;
