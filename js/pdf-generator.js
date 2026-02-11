@@ -21,7 +21,7 @@ function saveAsPDF() {
             quality: 0.98
         },
         html2canvas: {
-            scale: 1.5, // ✅ PUNTO decimal, no coma
+             scale: 1.3, // Reduce la escala para que quepa mejor
             useCORS: true,
             logging: false,
             letterRendering: true,
