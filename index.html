@@ -979,30 +979,29 @@ function saveAsPDF() {
     const element = document.getElementById('Hoja1');
     
     // Opciones de configuración para formato carta y saltos de página
-  const opt = {
-      margin: [15, 15, 15, 15], // Aumenta márgenes laterales
-      filename: 'recibo-reserva.pdf',
-      image: {
-        type: 'jpeg',
-        quality: 0.98
-      },
-      html2canvas: {
-        scale: 1.5, // Usa punto decimal, no coma
-        useCORS: true,
-        logging: false,
-        letterRendering: true,
-        allowTaint: false
-      },
-      jsPDF: {
-        unit: 'mm',
-        format: 'letter', // Usa 'letter' directamente
-        orientation: 'portrait'
-      },
-      pagebreak: {
-        mode: ['css', 'legacy'], // Elimina 'avoid-all'
-        before: '#pagina2, #pagina3',
-        after: '.page-break'
-      }
+ const opt = {
+  margin: [15, 15, 15, 15],
+  filename: 'recibo-reserva.pdf',
+  image: {
+    type: 'jpeg',
+    quality: 0.98
+  },
+  html2canvas: {
+    scale: 1.5,
+    useCORS: true,
+    logging: false,
+    letterRendering: true,
+    allowTaint: false
+  },
+  jsPDF: {
+    unit: 'mm',
+    format: 'letter',
+    orientation: 'portrait'
+  },
+  pagebreak: {
+    mode: ['css'],
+    before: '#pagina2, #pagina3'
+  }
 };
     
     // Generar y descargar PDF
