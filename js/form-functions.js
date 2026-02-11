@@ -168,9 +168,3 @@ function resetForm() {
         document.getElementById('txtlote').value = '';
     }
 }
-
-// Función para guardar como PDF
-function saveAsPDF() {
-    alert('Para guardar como PDF:\n1. Presione el botón "Imprimir Documento"\n2. En el cuadro de diálogo de impresión, seleccione "Guardar como PDF" como destino\n3. Haga clic en "Guardar"');
-    window.print();
-}
