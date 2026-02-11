@@ -980,14 +980,14 @@ function saveAsPDF() {
     
     // Opciones de configuración para formato carta y saltos de página
    const opt = {
-  margin: [5, 5, 5, 5], // [top, right, bottom, left] en mm
+  margin: [5, 2, 5, 2], // [top, right, bottom, left] en mm
   filename: 'recibo-reserva.pdf',
   image: {
     type: 'jpeg',
     quality: 0.98
   },
   html2canvas: {
-    scale: 2,
+    scale: 1,5,
     useCORS: true,
     logging: false,
     letterRendering: true,
