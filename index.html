@@ -362,47 +362,64 @@
         }
 
         /* ------------------ Estilos de impresión ------------------ */
-        @media print {
-              @page {
-                margin: 0;
-                size: auto;
-              }
-            body {
-                padding: 0;
-                margin: 0;
-                background-color: white;
-            }
-            .chbAplica {
-                display: none !important;
-            }
-            
-            #Hoja1.container {
-                box-shadow: none;
-                max-width: 100%;
-                padding: 0.5in;
-                min-height: auto;
-            }
-            
-            .signature-section { margin: 20px 0 15px 0; }
-
-            .page-break {
-                margin-top: 1.5cm !important; 
-                page-break-after: always;
-            }
-            .page-break:last-child {
-                page-break-after: auto;
-            }
-
-            /* Evitar cortes en firmas */
-            .signature-section { page-break-inside: avoid; }
-
-            /* Margen superior en página 2 */
-            #pagina2 { padding-top: 2cm; }
-            
-            /* Hide non-essential elements for print */
-            .no-print {
-                display: none !important;
-            }
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+  
+  body {
+    padding: 0;
+    margin: 0;
+    background-color: white;
+  }
+  
+  .chbAplica {
+    display: none !important;
+  }
+  
+  #Hoja1.container {
+    box-shadow: none;
+    max-width: 100%;
+    padding: 15mm 10mm 15mm 10mm !important; /* Usa los márgenes nuevos */
+    min-height: 279.4mm !important; /* Mantiene la altura mínima */
+  }
+  
+  #pagina2, #pagina3 {
+    padding-top: 10mm !important;
+    padding-bottom: 15mm !important;
+  }
+  
+  .Cuerp1 {
+    padding: 5mm !important;
+    margin: 0 !important;
+  }
+  
+  .signature-section { 
+    margin: 20px 0 15px 0; 
+  }
+  
+  .page-break {
+    margin-top: 1.5cm !important;
+    page-break-after: always;
+  }
+  
+  .page-break:last-child {
+    page-break-after: auto;
+  }
+  
+  .signature-section { 
+    page-break-inside: avoid; 
+  }
+  
+  #pagina2 { 
+    padding-top: 2cm; 
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}
         }
         
         /* Checkbox custom styling */
@@ -962,31 +979,31 @@ function saveAsPDF() {
     const element = document.getElementById('Hoja1');
     
     // Opciones de configuración para formato carta y saltos de página
-    const opt = {
-        margin: 10, // Margen en mm
-        filename: 'recibo-reserva.pdf',
-        image: { 
-            type: 'jpeg', 
-            quality: 0.98 
-        },
-        html2canvas: { 
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            letterRendering: true,
-            allowTaint: false
-        },
-        jsPDF: { 
-            unit: 'mm', 
-            format: [215.9, 279.4], // Tamaño carta: 8.5" x 11" = 215.9mm x 279.4mm
-            orientation: 'portrait'
-        },
-        pagebreak: {
-            mode: ['avoid-all', 'css', 'legacy'],
-            before: '#pagina2, #pagina3',
-            after: '.page-break'
-        }
-    };
+   const opt = {
+  margin: [15, 10, 15, 10], // [top, right, bottom, left] en mm
+  filename: 'recibo-reserva.pdf',
+  image: {
+    type: 'jpeg',
+    quality: 0.98
+  },
+  html2canvas: {
+    scale: 2,
+    useCORS: true,
+    logging: false,
+    letterRendering: true,
+    allowTaint: false
+  },
+  jsPDF: {
+    unit: 'mm',
+    format: [215.9, 279.4], // Tamaño carta: 8.5" x 11" = 215.9mm x 279.4mm
+    orientation: 'portrait'
+  },
+  pagebreak: {
+    mode: ['avoid-all', 'css', 'legacy'],
+    before: '#pagina2, #pagina3',
+    after: '.page-break'
+  }
+};
     
     // Generar y descargar PDF
     html2pdf()
