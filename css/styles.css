@@ -305,10 +305,10 @@ body {
     }
     
     #Hoja1.container {
-        box-shadow: none;
+         box-shadow: none;
         max-width: 100%;
-        padding: 0.5in;
-        min-height: auto;
+        padding: 5mm 5mm 5mm 5mm !important;
+        min-height: 279.4mm !important;
     }
     
     .signature-section { margin: 20px 0 15px 0; }
