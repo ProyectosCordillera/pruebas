@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Configurar evento de cambio de casa
     setupCasaChangeHandler();
+    
+    // Replicar valor del dropdown de casa al campo de texto
+    setupDropdownReplication('ddlcasaNumero', 'txtNumeroCasa');
 });
 
 // Función para inicializar el dropdown de casas
@@ -164,4 +167,10 @@ function resetForm() {
         // Restablecer campo de lote
         document.getElementById('txtlote').value = '';
     }
+}
+
+// Función para guardar como PDF
+function saveAsPDF() {
+    alert('Para guardar como PDF:\n1. Presione el botón "Imprimir Documento"\n2. En el cuadro de diálogo de impresión, seleccione "Guardar como PDF" como destino\n3. Haga clic en "Guardar"');
+    window.print();
 }
