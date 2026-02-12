@@ -1,0 +1,30 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": [
+        "source.fixAll.eslint"
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "html"
+    ],
+    "eslint.options": {
+        "extensions": [
+            ".js",
+            ".html"
+        ]
+    },
+    "htmlhint.options": {
+        "tagname-lowercase": true,
+        "attr-lowercase": true,
+        "attr-value-double-quotes": true
+    },
+    "errorLens.enabled": true,
+    "errorLens.errorBackground": "#ffcccc",
+    "errorLens.errorForeground": "#ff0000",
+    "errorLens.warningBackground": "#ffffcc",
+    "errorLens.warningForeground": "#ffaa00",
+    "files.autoSave": "onFocusChange",
+    "html.validate.scripts": true,
+    "html.validate.styles": true
+}
