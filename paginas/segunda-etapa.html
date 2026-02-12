@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segunda Etapa - Sistema Urbano</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/primer-etapa.css"> <!-- Reutilizamos el mismo CSS -->
+       <link rel="stylesheet" href="../css/stylerReloj.css"> <!-- Nuevo archivo CSS -->
+</head>
+<body>
+    <!-- Menú de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+        <div class="container-fluid">
+            <a class="navbar-brand me-2 logo-container" href="../index.html" title="Ir a Inicio">
+                <img src="../img/LOGOSUNDARA.jpg" alt="Logo Sundara - Ir a Inicio" class="img-fluid logo-img">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle menu-link" href="#" id="primerEtapaDropdown" 
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-house-door me-2"></i>Primer Etapa
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="primerEtapaDropdown">
+                            <li>
+                                <a class="dropdown-item" href="../paginas/primer-etapa.html">
+                                    <i class="bi bi-map me-2"></i> Plano
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle menu-link active" href="#" id="segundaEtapaDropdown" 
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-building me-2"></i>Segunda Etapa
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="segundaEtapaDropdown">
+                            <li>
+                                <a class="dropdown-item active" href="../paginas/segunda-etapa.html">
+                                    <i class="bi bi-map me-2"></i> Plano
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle menu-link" href="#" id="infaplicadosDropdown" 
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-file-earmark-bar-graph me-2"></i>Informe Aplicados
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="infaplicadosDropdown">
+                            <li>
+                                <a class="dropdown-item" href="../paginas/informe-aplicados.html">
+                                    <i class="bi bi-file-earmark-text me-2"></i> Informe
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                  <!-- Reloj Digital - Alineado a la derecha -->
+                <div class="clock-container">
+                    <i class="bi bi-clock clock-icon"></i>
+                    <div id="digitalClock" class="digital-clock">00:00:00</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br/>
+    <br/>
+    <!-- Contenido principal -->
+    <main class="container-fluid main-content">
+        <div class="container mt-4 no-print">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap align-items-center gap-3">
+                        <!-- Dropdown Marcas -->
+                        <div class="flex-grow-1" style="min-width: 200px;">
+                            <label class="form-label">Marcas existentes:</label>
+                            <select id="ddlMarcas" class="form-select" onchange="cargarMarcaSeleccionada()">
+                                <option value="0">Seleccione una marca</option>
+                            </select>
+                        </div>
+
+                        <div class="flex-grow-1" style="min-width: 200px;">
+                            <label class="form-label">Cliente:</label>
+                            <input type="text" id="txtCliente" class="form-control" 
+                                   placeholder="nombre del cliente" />
+                        </div>
+
+                        <!-- Campo Número de Casa -->
+                        <div class="flex-grow-1" style="min-width: 200px;">
+                            <label class="form-label" for="txtNumeroCasa">Número de casa:</label>
+                            <input type="text" id="txtNumeroCasa" class="form-control" 
+                                   placeholder="digite el numero de casa" disabled />
+                        </div>
+
+                        <!-- Grupo de Botones -->
+                        <div class="d-flex flex-wrap gap-2 align-self-end">
+                            <!-- Botón "Nuevo" -->
+                            <button type="button" class="btn btn-primary shadow-sm" onclick="habilitarNumeroCasa()">
+                                <i class="bi bi-plus-circle"></i> Nuevo
+                            </button>
+                            
+                            <!-- Botón "Aplicar" -->
+                            <button type="button" class="btn btn-info shadow-sm" onclick="marcarEnPlano()">
+                                <i class="bi bi-check-circle"></i> Aplicar
+                            </button>
+                            
+                            <!-- Botón "Eliminar" -->
+                            <button type="button" class="btn btn-danger shadow-sm" onclick="eliminarMarca()">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+
+                            <!-- Botón "Imprimir Plano" -->
+                            <button type="button" class="btn btn-success shadow-sm" onclick="imprimirPlano()">
+                                <i class="bi bi-printer"></i> Imprimir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="plano-container">
+            <img id="imgPlano" src="../img/Plano2.png" class="img-fluid" alt="Plano de la segunda etapa" />
+            <div id="marcadoresContainer"></div>
+        </div>
+    </main>
+    
+    <!-- Pie de página -->
+    <footer class="page-footer fixed-bottom">
+        <div class="container-fluid text-center">
+            <span class="footer-text">© <span id="currentYear"></span> Sistema Urbano</span>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script src="../js/script.js"></script>
+    <script src="../js/segunda-etapa.js"></script>
+       <script src="../js/RelojDigital.js"></script> <!-- Nuevo archivo JavaScript -->
+</body>
+</html>
