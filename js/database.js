@@ -13,7 +13,7 @@
 // Ruta de la base de datos - AJUSTA SEGÚN TU ESTRUCTURA
 // Si usas Live Server desde la raíz del proyecto: 'data/Urbano.db'
 // Si la página está en /paginas/: '../data/Urbano.db'
-const DB_PATH = 'data/Urbano.db'; // ⚠️ Cambia a '../data/Urbano.db' si es necesario
+const DB_PATH = '../data/Urbano.db'; // ⚠️ Cambia a '../data/Urbano.db' si es necesario
 
 // Variable global para la base de datos
 let dbInstance = null;
