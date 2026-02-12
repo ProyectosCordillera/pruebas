@@ -1,0 +1,146 @@
+/* Estilos específicos para la página de informe aplicados */
+
+.plano-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.plano-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.marcador {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    background-color: rgba(13, 110, 253, 0.9);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.marcador:hover {
+    background-color: rgba(13, 110, 253, 1);
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    z-index: 20;
+}
+
+.marcador.active {
+    background-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+}
+
+/* Ocultar COORDENADA X (columna 2) */
+#tblCasas th:nth-child(2),
+#tblCasas td:nth-child(2) {
+    display: none !important;
+}
+
+/* Ocultar COORDENADA Y (columna 3) */
+#tblCasas th:nth-child(3),
+#tblCasas td:nth-child(3) {
+    display: none !important;
+}
+
+/* Estilos para impresión - VERSIÓN FINAL */
+@media print {
+    /* Reset completo */
+    body, html {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: visible !important;
+    }
+    
+    /* Ocultar todo excepto el área imprimible */
+    body * {
+        visibility: hidden;
+    }
+    
+    /* Mostrar solo el contenido necesario */
+    .printable, 
+    .printable * {
+        visibility: visible !important;
+    }
+    
+    /* Contenedor principal */
+    .printable {
+        position: relative !important;
+        width: 100% !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    /* Contenedor del plano */
+    .plano-container {
+        position: relative !important;
+        width: 95% !important;
+        height: 95% !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Imagen del plano */
+    .plano-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Marcadores con posición exacta */
+    .marcador {
+        position: absolute !important;
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 12px !important;
+        background-color: #0d6efd !important;
+        border: 1px solid white !important;
+        transform: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Mostrar coordenadas en impresión */
+    #tblCasas th:nth-child(2),
+    #tblCasas td:nth-child(2),
+    #tblCasas th:nth-child(3),
+    #tblCasas td:nth-child(3) {
+        display: table-cell !important;
+    }
+    
+    /* Configuración de página */
+    @page {
+        size: A4 portrait;
+        margin: 5mm !important;
+    }
+}
