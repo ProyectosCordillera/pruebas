@@ -1,0 +1,63 @@
+/* Estilos generales */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    max-height: 50px;
+    width: auto;
+}
+
+/* Menú de navegación */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.menu-link {
+    font-weight: 500;
+    color: #333 !important;
+}
+
+.menu-link:hover {
+    color: #007bff !important;
+}
+
+/* Contenido principal */
+
+.main-content {
+    flex: 1;
+    padding: 20px 0;
+    background-color: #f8f9fa;
+}
+
+/* Pie de página */
+.page-footer {
+    background-color: #343a40;
+    color: white;
+    padding: 15px 0;
+}
+
+.footer-text {
+    color: rgba(255,255,255,0.7);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 10px 0;
+    }
+    
+    .logo-img {
+        max-height: 40px;
+    }
+}
