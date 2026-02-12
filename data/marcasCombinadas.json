@@ -1,0 +1,322 @@
+[
+  {
+    "numeroCasa": 35,
+    "cliente": "Cliente no especificado",
+    "coordenadas": {
+      "x": 455,
+      "y": 1148
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 37,
+    "cliente": "Cliente no especificado",
+    "coordenadas": {
+      "x": 455,
+      "y": 1028
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 38,
+    "cliente": "Cliente no especificado",
+    "coordenadas": {
+      "x": 455,
+      "y": 968
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 40,
+    "cliente": "Cliente no especificado",
+    "coordenadas": {
+      "x": 455,
+      "y": 848
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 42,
+    "cliente": "NORMAN ANDREI MADRIZ BERMUDEZ",
+    "coordenadas": {
+      "x": 455,
+      "y": 728
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 43,
+    "cliente": "DANIEL BRAVO VINDAS",
+    "coordenadas": {
+      "x": 455,
+      "y": 668
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 44,
+    "cliente": "JOSE PABLO FERNANDEZ QUESADA",
+    "coordenadas": {
+      "x": 455,
+      "y": 608
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 45,
+    "cliente": "ANA CAROLINA GOMEZ VARGAS",
+    "coordenadas": {
+      "x": 455,
+      "y": 548
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 46,
+    "cliente": "JAIRO ALONSO BLANCO OBANDO",
+    "coordenadas": {
+      "x": 455,
+      "y": 488
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 47,
+    "cliente": "3-102-691665 S.R.L.",
+    "coordenadas": {
+      "x": 455,
+      "y": 428
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 48,
+    "cliente": "PAOLA SOFIA PAPILI RUMOROSO",
+    "coordenadas": {
+      "x": 145,
+      "y": 437
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 49,
+    "cliente": "JOSE ALBERTO DURAN ESQUIVEL",
+    "coordenadas": {
+      "x": 145,
+      "y": 497
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 50,
+    "cliente": "JOHNNY FRANCISCO PIEDRA AGUILERA",
+    "coordenadas": {
+      "x": 145,
+      "y": 557
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 51,
+    "cliente": "LEONARDO RODRIGUEZ ZUMBADO",
+    "coordenadas": {
+      "x": 145,
+      "y": 617
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 52,
+    "cliente": "MARITA ANTOINETTE WILLIAMS",
+    "coordenadas": {
+      "x": 145,
+      "y": 677
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 53,
+    "cliente": "RANDALL GUSTAVO LOBO INNECKEN",
+    "coordenadas": {
+      "x": 145,
+      "y": 737
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 54,
+    "cliente": "ALEJANDRA VILLAGRA SOLIS",
+    "coordenadas": {
+      "x": 145,
+      "y": 797
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 55,
+    "cliente": "DANIELA CASTRO MORA",
+    "coordenadas": {
+      "x": 145,
+      "y": 857
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 56,
+    "cliente": "KIMBERLY FARRIER QUESADA",
+    "coordenadas": {
+      "x": 145,
+      "y": 917
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 57,
+    "cliente": "ALBRECHT BERNHARD MARIN SUAREZ",
+    "coordenadas": {
+      "x": 145,
+      "y": 977
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 58,
+    "cliente": "CARLOS MARIO CHAVES RAMIREZ",
+    "coordenadas": {
+      "x": 145,
+      "y": 1037
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 59,
+    "cliente": "Cliente no especificado",
+    "coordenadas": {
+      "x": 145,
+      "y": 1097
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 60,
+    "cliente": "CAROL FUENTES ARAYA",
+    "coordenadas": {
+      "x": 145,
+      "y": 1157
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 61,
+    "cliente": "Cliente no especificado",
+    "coordenadas": {
+      "x": 145,
+      "y": 1217
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 62,
+    "cliente": "MARIA GABRIELA FERNANDEZ SCOTT",
+    "coordenadas": {
+      "x": 145,
+      "y": 1277
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 65,
+    "cliente": "Cliente no especificado",
+    "coordenadas": {
+      "x": 145,
+      "y": 1457
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 1
+  },
+  {
+    "numeroCasa": 1,
+    "cliente": "Carlos Rodríguez",
+    "coordenadas": {
+      "x": 925,
+      "y": 1265
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 2
+  },
+  {
+    "numeroCasa": 2,
+    "cliente": "Ana Martínez",
+    "coordenadas": {
+      "x": 925,
+      "y": 1205
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 2
+  },
+  {
+    "numeroCasa": 3,
+    "cliente": "Roberto Sánchez",
+    "coordenadas": {
+      "x": 925,
+      "y": 1145
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 2
+  },
+  {
+    "numeroCasa": 17,
+    "cliente": "Laura Díaz",
+    "coordenadas": {
+      "x": 630,
+      "y": 365
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 2
+  },
+  {
+    "numeroCasa": 18,
+    "cliente": "Miguel Torres",
+    "coordenadas": {
+      "x": 630,
+      "y": 425
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 2
+  },
+  {
+    "numeroCasa": 19,
+    "cliente": "Elena García",
+    "coordenadas": {
+      "x": 630,
+      "y": 485
+    },
+    "fecha": "2026-02-07T00:00:00.000Z",
+    "etapa": 2
+  }
+]
