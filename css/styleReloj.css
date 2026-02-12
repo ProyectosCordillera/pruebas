@@ -1,0 +1,32 @@
+  .digital-clock {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            min-width: 120px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 767.98px) {
+            .digital-clock {
+                font-size: 1rem;
+                padding: 6px 12px;
+                min-width: 100px;
+            }
+        }
+        
+        .clock-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .clock-icon {
+            color: #667eea;
+            font-size: 1.3rem;
+        }
