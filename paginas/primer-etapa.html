@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Primer Etapa - Sistema Urbano</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS - CORREGIDO: sin espacios al final -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/primer-etapa.css">
-    <link rel="stylesheet" href="../css/stylerReloj.css"> <!-- Nuevo archivo CSS -->
+    <link rel="stylesheet" href="../css/stylerReloj.css">
 </head>
 
 <body>
@@ -149,24 +149,63 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JS Bundle con Popper -->
+    <!-- ============================================
+         CARGA DE SCRIPTS - ¡ORDEN CRÍTICO!
+         ============================================ -->
+
+    <!-- Bootstrap JS Bundle con Popper - CORREGIDO: sin espacios -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- JavaScript Personalizado - ¡ORDEN IMPORTANTE! -->
+    <!-- JavaScript Personalizado -->
     <script src="../js/script.js"></script>
     <script src="../js/RelojDigital.js"></script>
 
-    <!-- 🔑 CARGAR sql.js PRIMERO -->
+    <!-- 🔑 PASO 1: Cargar sql.js (biblioteca SQLite) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
 
-    <!-- 🔑 LUEGO database.js (depende de sql.js) -->
+    <!-- 🔑 PASO 2: Cargar database.js (depende de sql.js) -->
     <script src="../js/database.js"></script>
 
-    <!-- 🔑 FINALMENTE primer-etapa.js (depende de database.js) -->
+    <!-- 🔑 PASO 3: Cargar primer-etapa.js (depende de database.js) -->
     <script src="../js/primer-etapa.js"></script>
 
+    <!-- ============================================
+         VERIFICACIÓN DE ESTRUCTURA DE CARPETAS
+         ============================================ -->
+    <script>
+        // Verificar estructura al cargar
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🔍 Verificando estructura de carpetas...');
+            console.log('📍 Página actual:', window.location.href);
+            console.log('📍 Ruta base:', window.location.origin + window.location.pathname);
 
+            // Verificar si estamos usando Live Server
+            if (window.location.protocol === 'file:') {
+                console.warn('⚠️ ADVERTENCIA: Estás abriendo el HTML directamente (file://)');
+                console.warn('💡 SOLUCIÓN: Usa Live Server para evitar errores CORS');
+
+                // Mostrar advertencia al usuario
+                setTimeout(() => {
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Atención!',
+                            html: '<strong>Estás abriendo el archivo HTML directamente</strong><br><br>' +
+                                '🔑 <strong>Solución:</strong><br>' +
+                                '1. Instala la extensión "Live Server" en VS Code<br>' +
+                                '2. Clic derecho en el archivo → "Open with Live Server"<br><br>' +
+                                '⚠️ Sin Live Server, la base de datos NO funcionará',
+                            confirmButtonText: 'Entendido',
+                            allowOutsideClick: false
+                        });
+                    }
+                }, 1000);
+            } else {
+                console.log('✅ Usando servidor web:', window.location.protocol);
+            }
+        });
+    </script>
 
 </body>
 
