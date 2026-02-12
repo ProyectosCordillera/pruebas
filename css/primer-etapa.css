@@ -1,0 +1,80 @@
+/* Estilos específicos para la página de primer etapa */
+
+.btn-custom {
+    background-color: #6a1b9a; /* Morado */
+    color: white;
+    border-color: #5e148c;
+}
+
+.btn-custom:hover {
+    background-color: #7c23b3;
+    border-color: #6a1b9a;
+}
+
+.plano-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+    max-width: 100%;
+}
+
+.marcador {
+    position: absolute;
+    width: 48px;  /* Tamaño aumentado */
+    height: 48px; /* Tamaño aumentado */
+    background-color: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px; /* Tamaño de letra aumentado */
+    z-index: 100;
+}
+
+/* Estilos para impresión */
+@media print {
+    body * {
+        visibility: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .plano-container, .plano-container * {
+        visibility: visible;
+    }
+
+    .plano-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+    
+    .marcador {
+        /* Reducir tamaño para impresión */
+        width: 37px !important;
+        height: 37px !important;
+        font-size: 16px !important;
+        
+        /* Mantener color rojo */
+        background-color: red !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+}
