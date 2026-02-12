@@ -10,8 +10,10 @@
 // CONFIGURACIÓN INICIAL
 // ============================================
 
-// Ruta de la base de datos (ajusta según tu estructura de carpetas)
-const DB_PATH = '../data/Urbano.db';
+// Ruta de la base de datos - AJUSTA SEGÚN TU ESTRUCTURA
+// Si usas Live Server desde la raíz del proyecto: 'data/Urbano.db'
+// Si la página está en /paginas/: '../data/Urbano.db'
+const DB_PATH = 'data/Urbano.db'; // ⚠️ Cambia a '../data/Urbano.db' si es necesario
 
 // Variable global para la base de datos
 let dbInstance = null;
@@ -27,16 +29,40 @@ async function loadDatabase() {
             return dbInstance;
         }
 
-        // Cargar sql.js
+        // Verificar que sql.js esté disponible
+        if (typeof initSqlJs === 'undefined') {
+            throw new Error('sql.js no está cargado. Verifica que el script sql-wasm.js esté incluido en el HTML.');
+        }
+
+        console.log('📥 Cargando sql.js...');
+
+        // Cargar sql.js - CORREGIDO: eliminar espacios extra en la URL
         const SQL = await initSqlJs({
             locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
         });
+
+        console.log(`📥 Cargando base de datos desde: ${DB_PATH}`);
 
         // Obtener archivo .db
         const response = await fetch(DB_PATH);
 
         if (!response.ok) {
-            throw new Error(`Error al cargar base de datos: ${response.status}`);
+            if (response.status === 404) {
+                throw new Error(`Base de datos no encontrada en: ${DB_PATH}\n\n` +
+                    `💡 Posibles soluciones:\n` +
+                    `1. Verifica que el archivo 'Urbano.db' exista en la carpeta 'data/'\n` +
+                    `2. Si tu página está en /paginas/, cambia DB_PATH a '../data/Urbano.db'\n` +
+                    `3. Usa Live Server (no abras el HTML directamente)\n` +
+                    `4. Verifica la estructura de carpetas:\n` +
+                    `   proyecto/\n` +
+                    `   ├── data/\n` +
+                    `   │   └── Urbano.db\n` +
+                    `   ├── paginas/\n` +
+                    `   │   └── primer-etapa.html\n` +
+                    `   └── js/\n` +
+                    `       └── database.js`);
+            }
+            throw new Error(`Error al cargar base de datos: ${response.status} ${response.statusText}`);
         }
 
         const buffer = await response.arrayBuffer();
@@ -51,7 +77,31 @@ async function loadDatabase() {
 
     } catch (error) {
         console.error('❌ Error al cargar base de datos:', error);
+
+        // Mostrar error amigable al usuario
+        mostrarErrorBD(error.message || error.toString());
+
         throw error;
+    }
+}
+
+// ============================================
+// FUNCIÓN AUXILIAR PARA MOSTRAR ERRORES
+// ============================================
+
+function mostrarErrorBD(mensaje) {
+    // Verificar si SweetAlert2 está disponible
+    if (typeof Swal !== 'undefined' && Swal.fire) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de Base de Datos',
+            html: `<pre style="text-align: left; max-height: 300px; overflow-y: auto;">${mensaje}</pre>`,
+            footer: '<strong>🔑 Solución rápida:</strong> Abre el proyecto con <strong>Live Server</strong>',
+            width: '600px'
+        });
+    } else {
+        // Fallback con alert nativo
+        alert(`❌ Error de Base de Datos:\n\n${mensaje}\n\n💡 Usa Live Server para evitar errores CORS`);
     }
 }
 
@@ -134,11 +184,15 @@ async function insertarCasa(numeroCasa, coordX, coordY) {
         console.error('❌ Error al insertar casa:', error);
         // Verificar si es error de UNIQUE constraint
         if (error.message && error.message.includes('UNIQUE constraint failed')) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Casa existente',
-                text: `La casa "${numeroCasa}" ya existe en la base de datos`
-            });
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Casa existente',
+                    text: `La casa "${numeroCasa}" ya existe en la base de datos`
+                });
+            } else {
+                alert(`⚠️ Casa existente: La casa "${numeroCasa}" ya existe`);
+            }
         }
         return false;
     }
@@ -270,11 +324,15 @@ async function insertarCliente(nombreCliente, numeroCasa) {
         // Verificar que la casa exista
         const casa = await getCasaByNumero(numeroCasa);
         if (!casa) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: `La casa "${numeroCasa}" no existe. Debes crearla primero.`
-            });
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: `La casa "${numeroCasa}" no existe. Debes crearla primero.`
+                });
+            } else {
+                alert(`❌ Error: La casa "${numeroCasa}" no existe`);
+            }
             return false;
         }
 
@@ -288,11 +346,15 @@ async function insertarCliente(nombreCliente, numeroCasa) {
     } catch (error) {
         console.error('❌ Error al insertar cliente:', error);
         if (error.message && error.message.includes('FOREIGN KEY constraint failed')) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error de relación',
-                text: 'La casa seleccionada no existe en la base de datos'
-            });
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de relación',
+                    text: 'La casa seleccionada no existe en la base de datos'
+                });
+            } else {
+                alert('❌ Error de relación: La casa no existe');
+            }
         }
         return false;
     }
@@ -459,3 +521,4 @@ window.Database = {
 
 console.log('✅ Módulo de base de datos cargado');
 console.log('📊 Tablas disponibles: TablaCasas, TablaClienteCasa');
+console.log('💡 Recuerda: Usa Live Server para evitar errores CORS');
