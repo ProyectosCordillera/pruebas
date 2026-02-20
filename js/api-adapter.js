@@ -3,7 +3,7 @@
 // Reemplaza las funciones de Database.js
 // ============================================
 
-const API_BASE = 'http://192.168.1.69/api-casas/api';
+const API_BASE = 'http://170.84.108.45/api-casas/api';
 
 // ============================================
 // FUNCIONES QUE IMITAN TU Database.js
