@@ -149,26 +149,40 @@
         </div>
     </footer>
 
-    <!-- ============================================
-         CARGA DE SCRIPTS - ¡ORDEN CRÍTICO!
-         ============================================ -->
+  <!-- ============================================
+     CARGA DE SCRIPTS - ¡ORDEN CRÍTICO!
+     ============================================ -->
 
-    <!-- Bootstrap JS Bundle con Popper - CORREGIDO: sin espacios -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Bootstrap JS Bundle con Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- JavaScript Personalizado -->
-    <script src="../js/script.js"></script>
-    <script src="../js/RelojDigital.js"></script>
+<!-- SweetAlert2 para alertas bonitas -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- 🔑 PASO 1: Cargar sql.js (biblioteca SQLite) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<!-- JavaScript Personalizado (utilidades generales) -->
+<script src="../js/script.js"></script>
+<script src="../js/RelojDigital.js"></script>
 
-    <!-- 🔑 PASO 2: Cargar database.js (depende de sql.js) -->
-    <script src="../js/database.js"></script>
+<!-- ============================================
+     OPCIÓN A: Usar API (Recomendado para producción)
+     ============================================ -->
 
-    <!-- 🔑 PASO 3: Cargar primer-etapa.js (depende de database.js) -->
-    <script src="../js/primer-etapa.js"></script>
+<!-- 🔹 Adapter que conecta Database con tu API en IIS -->
+<script src="../js/api-adapter.js"></script>
+
+<!-- 🔹 Tu lógica principal (usará ApiDatabase automáticamente) -->
+<script src="../js/primer-etapa.js"></script>
+
+
+<!-- ============================================
+     OPCIÓN B: Usar SQLite local (Solo para pruebas offline)
+     Descomenta esta sección si NO quieres usar la API
+     ============================================ -->
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<script src="../js/database.js"></script>
+<script src="../js/primer-etapa.js"></script>
+-->
 
     <!-- ============================================
          VERIFICACIÓN DE ESTRUCTURA DE CARPETAS
