@@ -1,28 +1,93 @@
-// Función para detectar si estamos en red local
-function estaEnRedLocal() {
-    const hostname = window.location.hostname;
-    // Si el dominio es localhost, 192.168.x.x, 10.x.x.x, o 172.16-31.x.x
-    return hostname === 'localhost' || 
-           hostname === '127.0.0.1' ||
-           hostname.startsWith('192.168.') ||
-           hostname.startsWith('10.') ||
-           hostname.startsWith('172.16.') ||
-           hostname.startsWith('172.17.') ||
-           hostname.startsWith('172.18.') ||
-           hostname.startsWith('172.19.') ||
-           hostname.startsWith('172.2') ||
-           hostname.startsWith('172.30.') ||
-           hostname.startsWith('172.31.');
+// ============================================
+// API ADAPTER - Con fallback automático de URLs
+// Intenta múltiples combinaciones hasta conectar
+// ============================================
+
+// Lista de URLs a intentar en orden de prioridad
+const API_URLS = [
+    'http://170.84.108.45:8080/api-casas/api',  // 1. IP pública + puerto 8080 (internet)
+    'http://192.168.1.69:8080/api-casas/api',   // 2. IP local + puerto 8080 (red local)
+    'http://170.84.108.45/api-casas/api',       // 3. IP pública + puerto 80 (internet)
+    'http://192.168.1.69/api-casas/api'         // 4. IP local + puerto 80 (red local)
+];
+
+// URL que está funcionando (se guarda en sessionStorage para persistir entre recargas)
+let API_BASE = sessionStorage.getItem('apiBaseUrl') || null;
+
+// ============================================
+// FUNCIÓN PARA PROBAR UNA URL ESPECÍFICA
+// ============================================
+async function probarUrl(url, endpoint = '/casas') {
+    try {
+        // Timeout de 5 segundos para no esperar indefinidamente
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        
+        const response = await fetch(`${url}${endpoint}`, {
+            method: 'GET',
+            signal: controller.signal,
+            mode: 'cors',
+            cache: 'no-store'
+        });
+        
+        clearTimeout(timeoutId);
+        
+        // Si la respuesta es exitosa (200-299), la URL funciona
+        if (response.ok) {
+            return true;
+        }
+        return false;
+        
+    } catch (error) {
+        // Cualquier error (timeout, CORS, network) significa que no funciona
+        return false;
+    }
 }
 
-// Seleccionar la URL base según la red
-const API_BASE = estaEnRedLocal() 
-    ? 'http://192.168.1.69/api-casas/api'        // 🔹 Red local: IP privada, puerto 80
-    : 'http://170.84.108.45:8080/api-casas/api';  // 🔹 Internet: IP pública, puerto 8080
+// ============================================
+// FUNCIÓN PARA ENCONTRAR LA URL FUNCIONAL
+// ============================================
+async function encontrarUrlFuncional() {
+    console.log('🔄 Buscando URL de API funcional (fallback)...');
+    
+    for (const url of API_URLS) {
+        console.log(`🔍 Probando: ${url}`);
+        const funciona = await probarUrl(url);
+        
+        if (funciona) {
+            console.log(`✅ URL funcional encontrada: ${url}`);
+            // Guardar en sessionStorage para usar en futuras peticiones
+            sessionStorage.setItem('apiBaseUrl', url);
+            return url;
+        }
+    }
+    
+    console.error('❌ Ninguna URL de API funciona. Verifica:');
+    console.error('   • Que IIS esté corriendo en el servidor');
+    console.error('   • Que el puerto forwarding esté configurado');
+    console.error('   • Que el firewall permita el tráfico');
+    console.error('   • ⚠️ Si estás en HTTPS (GitHub Pages), el navegador bloqueará HTTP (Mixed Content)');
+    
+    return null;
+}
 
-console.log(`🌐 API Base seleccionada: ${API_BASE} (red: ${estaEnRedLocal() ? 'LOCAL' : 'INTERNET'})`);
+// ============================================
+// FUNCIÓN PRINCIPAL: Obtener URL base con caché
+// ============================================
+async function getApiBase() {
+    // Si ya tenemos una URL que funciona, usarla directamente
+    if (API_BASE) {
+        return API_BASE;
+    }
+    
+    // Intentar encontrar una URL funcional
+    API_BASE = await encontrarUrlFuncional();
+    return API_BASE;
+}
 
-// ✅ CREAR Database GLOBAL INMEDIATAMENTE
+// ============================================
+// CREAR Database GLOBAL INMEDIATAMENTE
+// ============================================
 if (typeof window.Database === 'undefined') {
     window.Database = {};
     console.log('🔄 [ApiAdapter] Objeto Database creado inmediatamente');
@@ -36,8 +101,11 @@ const ApiDatabase = {
     
     async getCasas() {
         try {
-            console.log('🔄 [API] Obteniendo casas...');
-            const response = await fetch(`${API_BASE}/casas`);
+            const baseUrl = await getApiBase();
+            if (!baseUrl) throw new Error('No se pudo conectar a ninguna URL de API');
+            
+            console.log(`🔄 [API] Obteniendo casas desde: ${baseUrl}`);
+            const response = await fetch(`${baseUrl}/casas`);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -72,9 +140,12 @@ const ApiDatabase = {
 
     async insertarCasaConCliente(numeroCasa, coordX, coordY, nombreCliente) {
         try {
-            console.log(`💾 [API] Guardando casa ${numeroCasa}...`);
+            const baseUrl = await getApiBase();
+            if (!baseUrl) throw new Error('No se pudo conectar a ninguna URL de API');
             
-            const response = await fetch(`${API_BASE}/casas`, {
+            console.log(`💾 [API] Guardando casa ${numeroCasa} en: ${baseUrl}`);
+            
+            const response = await fetch(`${baseUrl}/casas`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -101,9 +172,12 @@ const ApiDatabase = {
 
     async eliminarCasaConCliente(numeroCasa) {
         try {
-            console.log(`🗑️ [API] Eliminando casa ${numeroCasa}...`);
+            const baseUrl = await getApiBase();
+            if (!baseUrl) throw new Error('No se pudo conectar a ninguna URL de API');
             
-            const response = await fetch(`${API_BASE}/casas/${numeroCasa}`, {
+            console.log(`🗑️ [API] Eliminando casa ${numeroCasa} desde: ${baseUrl}`);
+            
+            const response = await fetch(`${baseUrl}/casas/${numeroCasa}`, {
                 method: 'DELETE'
             });
             
@@ -135,7 +209,8 @@ const ApiDatabase = {
 Object.assign(window.Database, ApiDatabase);
 
 // ✅ Verificación final
-console.log('✅ ApiDatabase cargado - Conectado a:', API_BASE);
+console.log('✅ ApiDatabase cargado - Sistema de fallback activo');
+console.log('✅ URLs configuradas para intentar:', API_URLS.length);
 console.log('✅ Database disponible con funciones:', Object.keys(window.Database));
 
 // ✅ Exportar para compatibilidad con módulos (opcional)
