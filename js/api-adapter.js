@@ -1,9 +1,15 @@
 // ============================================
 // API ADAPTER - Conecta con tu API en IIS
-// Reemplaza las funciones de Database.js
+// Crea Database INMEDIATAMENTE al cargarse
 // ============================================
 
 const API_BASE = 'http://170.84.108.45:8080/api-casas/api';
+
+// ✅ CREAR Database GLOBAL INMEDIATAMENTE (antes de cualquier otra cosa)
+if (typeof window.Database === 'undefined') {
+    window.Database = {};
+    console.log('🔄 [ApiAdapter] Objeto Database creado inmediatamente');
+}
 
 // ============================================
 // FUNCIONES QUE IMITAN TU Database.js
@@ -11,7 +17,6 @@ const API_BASE = 'http://170.84.108.45:8080/api-casas/api';
 
 const ApiDatabase = {
     
-    // 📥 Obtener todas las casas (reemplaza Database.getCasas)
     async getCasas() {
         try {
             console.log('🔄 [API] Obteniendo casas...');
@@ -23,14 +28,12 @@ const ApiDatabase = {
             
             const casas = await response.json();
             
-            // 🔧 Adaptar formato de la API al que espera tu código
-            // La API devuelve: {id, numeroCasa, coordenadaX, coordenadaY}
-            // Tu código espera: {id, numero_casa, coordenada_x, coordenada_y}
+            // Adaptar formato de la API al que espera tu código
             return casas.map(casa => ({
                 id: casa.id,
-                numero_casa: casa.numeroCasa.toString(),
-                coordenada_x: casa.coordenadaX,
-                coordenada_y: casa.coordenadaY
+                numero_casa: casa.numeroCasa?.toString() || casa.numero_casa,
+                coordenada_x: casa.coordenadaX ?? casa.coordenada_x,
+                coordenada_y: casa.coordenadaY ?? casa.coordenada_y
             }));
             
         } catch (error) {
@@ -39,37 +42,22 @@ const ApiDatabase = {
         }
     },
 
-    // 👤 Obtener cliente por número de casa (reemplaza Database.getClienteByCasa)
     async getClienteByCasa(numeroCasa) {
         try {
             console.log(`🔄 [API] Buscando cliente para casa ${numeroCasa}...`);
-            
-            // 🔧 NOTA: Tu API actual no tiene endpoint para clientes aún
-            // Esta es una solución temporal que devuelve null
-            // Después podemos agregar el endpoint en la API si lo necesitas
-            
-            return null; // Temporal: sin clientes asociados
-            
-            // ✅ Cuando tengas el endpoint en la API, usa esto:
-            /*
-            const response = await fetch(`${API_BASE}/clientes/casa/${numeroCasa}`);
-            if (!response.ok) return null;
-            return await response.json();
-            */
-            
+            // Temporal: sin clientes asociados (hasta que agregues el endpoint)
+            return null;
         } catch (error) {
             console.warn('⚠️ [API] No se pudo obtener el cliente:', error);
             return null;
         }
     },
 
-    // ➕ Insertar casa con cliente (reemplaza Database.insertarCasaConCliente)
     async insertarCasaConCliente(numeroCasa, coordX, coordY, nombreCliente) {
         try {
             console.log(`💾 [API] Guardando casa ${numeroCasa}...`);
             
-            // 1. Guardar la casa
-            const responseCasa = await fetch(`${API_BASE}/casas`, {
+            const response = await fetch(`${API_BASE}/casas`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -79,29 +67,13 @@ const ApiDatabase = {
                 })
             });
             
-            if (!responseCasa.ok) {
-                const errorData = await responseCasa.json().catch(() => ({}));
-                throw new Error(errorData.message || `HTTP ${responseCasa.status}`);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `HTTP ${response.status}`);
             }
             
-            const resultCasa = await responseCasa.json();
-            console.log(`✅ [API] Casa guardada con ID: ${resultCasa.id}`);
-            
-            // 2. 🔧 Guardar el cliente (cuando tengas el endpoint en la API)
-            // Por ahora, solo guardamos la casa
-            /*
-            if (nombreCliente && nombreCliente.trim() !== '') {
-                await fetch(`${API_BASE}/clientes`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        nombreCliente: nombreCliente.trim(),
-                        casaNumero: parseInt(numeroCasa)
-                    })
-                });
-            }
-            */
-            
+            const result = await response.json();
+            console.log(`✅ [API] Casa guardada con ID: ${result.id}`);
             return true;
             
         } catch (error) {
@@ -110,15 +82,10 @@ const ApiDatabase = {
         }
     },
 
-    // 🗑️ Eliminar casa con cliente (reemplaza Database.eliminarCasaConCliente)
     async eliminarCasaConCliente(numeroCasa) {
         try {
             console.log(`🗑️ [API] Eliminando casa ${numeroCasa}...`);
             
-            // 🔧 Primero eliminar clientes asociados (cuando tengas el endpoint)
-            // await fetch(`${API_BASE}/clientes/casa/${numeroCasa}`, { method: 'DELETE' });
-            
-            // Luego eliminar la casa
             const response = await fetch(`${API_BASE}/casas/${numeroCasa}`, {
                 method: 'DELETE'
             });
@@ -136,7 +103,6 @@ const ApiDatabase = {
         }
     },
 
-    // 🔍 Obtener casa por número (reemplaza Database.getCasaByNumero)
     async getCasaByNumero(numeroCasa) {
         try {
             const casas = await this.getCasas();
@@ -148,18 +114,14 @@ const ApiDatabase = {
     }
 };
 
-// ============================================
-// EXPORTAR PARA USAR EN TU CÓDIGO
-// ============================================
-
-// ✅ Crear objeto Database global si no existe
-if (typeof window.Database === 'undefined') {
-    console.log('🔄 Creando objeto Database global con ApiDatabase');
-    window.Database = {};
-}
-
-// ✅ Reemplazar/augmentar las funciones de Database con las de la API
+// ✅ COPIAR funciones de ApiDatabase a Database INMEDIATAMENTE
 Object.assign(window.Database, ApiDatabase);
 
+// ✅ Verificación final
 console.log('✅ ApiDatabase cargado - Conectado a:', API_BASE);
-console.log('✅ Database disponible:', Object.keys(window.Database));
+console.log('✅ Database disponible con funciones:', Object.keys(window.Database));
+
+// ✅ Exportar para compatibilidad con módulos (opcional)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = window.Database;
+}
