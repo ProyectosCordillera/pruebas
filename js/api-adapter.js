@@ -152,16 +152,14 @@ const ApiDatabase = {
 // EXPORTAR PARA USAR EN TU CÓDIGO
 // ============================================
 
-// Opción A: Reemplazar globalmente el objeto Database (más fácil)
-if (typeof Database !== 'undefined') {
-    console.log('🔄 Reemplazando Database con ApiDatabase');
-    // Copiar todas las funciones de ApiDatabase a Database
-    Object.assign(Database, ApiDatabase);
+// ✅ Crear objeto Database global si no existe
+if (typeof window.Database === 'undefined') {
+    console.log('🔄 Creando objeto Database global con ApiDatabase');
+    window.Database = {};
 }
 
-// Opción B: Exportar para uso manual
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ApiDatabase;
-}
+// ✅ Reemplazar/augmentar las funciones de Database con las de la API
+Object.assign(window.Database, ApiDatabase);
 
 console.log('✅ ApiDatabase cargado - Conectado a:', API_BASE);
+console.log('✅ Database disponible:', Object.keys(window.Database));
