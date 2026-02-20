@@ -1,11 +1,28 @@
-// ============================================
-// API ADAPTER - Conecta con tu API en IIS
-// Crea Database INMEDIATAMENTE al cargarse
-// ============================================
+// Función para detectar si estamos en red local
+function estaEnRedLocal() {
+    const hostname = window.location.hostname;
+    // Si el dominio es localhost, 192.168.x.x, 10.x.x.x, o 172.16-31.x.x
+    return hostname === 'localhost' || 
+           hostname === '127.0.0.1' ||
+           hostname.startsWith('192.168.') ||
+           hostname.startsWith('10.') ||
+           hostname.startsWith('172.16.') ||
+           hostname.startsWith('172.17.') ||
+           hostname.startsWith('172.18.') ||
+           hostname.startsWith('172.19.') ||
+           hostname.startsWith('172.2') ||
+           hostname.startsWith('172.30.') ||
+           hostname.startsWith('172.31.');
+}
 
-const API_BASE = 'http://192.168.1.69:80/api-casas/api';
+// Seleccionar la URL base según la red
+const API_BASE = estaEnRedLocal() 
+    ? 'http://192.168.1.69/api-casas/api'        // 🔹 Red local: IP privada, puerto 80
+    : 'http://170.84.108.45:8080/api-casas/api';  // 🔹 Internet: IP pública, puerto 8080
 
-// ✅ CREAR Database GLOBAL INMEDIATAMENTE (antes de cualquier otra cosa)
+console.log(`🌐 API Base seleccionada: ${API_BASE} (red: ${estaEnRedLocal() ? 'LOCAL' : 'INTERNET'})`);
+
+// ✅ CREAR Database GLOBAL INMEDIATAMENTE
 if (typeof window.Database === 'undefined') {
     window.Database = {};
     console.log('🔄 [ApiAdapter] Objeto Database creado inmediatamente');
