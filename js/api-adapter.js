@@ -3,7 +3,7 @@
 // Crea Database INMEDIATAMENTE al cargarse
 // ============================================
 
-const API_BASE = 'http://170.84.108.45:8080/api-casas/api';
+const API_BASE = 'http://192.168.1.69:80/api-casas/api';
 
 // ✅ CREAR Database GLOBAL INMEDIATAMENTE (antes de cualquier otra cosa)
 if (typeof window.Database === 'undefined') {
