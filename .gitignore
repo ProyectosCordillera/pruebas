@@ -1,0 +1,11 @@
+# Archivos de compilación
+bin/
+obj/
+publish/
+
+# Archivos de usuario
+*.user
+*.suo
+
+# Secrets (nunca subas contraseñas a GitHub)
+appsettings.Production.json
