@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Reserva - Condominio Sundara</title>
+    
+    <!-- 🔥 Meta tags para evitar caché -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <!-- ✅ html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Botones de navbar  -->
+    <nav class="navbar navbar-expand-lg no-print sticky-top shadow-sm" style="background:#000000; z-index:1050;">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="img/Logo-Sundara.jpg" alt="Logo Sundara" style="height:40px;">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSundara">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSundara">    
+                <div class="d-flex gap-2 mx-auto justify-content-center">
+                    <button class="btn btn-outline-light btn-sm" onclick="window.print()">🖨️ Imprimir</button>
+                    <button class="btn btn-outline-success btn-sm" onclick="saveAsPDF(event)">💾 PDF</button>
+                    <button class="btn btn-outline-warning btn-sm" onclick="resetForm()">↺ Limpiar</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- final del navbar  -->
+
+    <!-- Contenido principal -->
+    <div id="Hoja1" class="container py-3">
+      <div class="pdf-margin">
+        <div id="PAgina1">
+            <div id="Encabezado">
+                <!-- Logo centrado -->
+                <div class="logo-container d-flex justify-content-start">
+                    <img src="img/Logo-Sundara.jpg" class="img-fluid" alt="Logo Sundara" style="max-height:70px;">
+                </div>
+                <br />
+                
+                <!-- Primera fila -->
+                <div class="d-flex justify-content-center align-items-center mb-2 text-center gap-2">
+                    <h2 class="h5 mb-0 Encabe">RECIBO DE RESERVA</h2>
+                </div>
+                
+                <div class="d-flex justify-content-center align-items-center gap-2 text-center">
+                    <h3 class="h7 mb-0 Encabe2">CASA NÚMERO</h3>
+                    <select id="ddlcasaNumero" class="form-select w-auto dropdown-custom-Casa">
+                        <option value="">...</option>
+                    </select>
+                </div>
+                <br />
+                
+                <div id="CuerpoHoja1" class="Cuerp1">
+                    Hemos recibido de <input type="text" id="txtNombre" class="underlineNombre">,
+                    estado civil <select id="ddlEstado" class="dropdown-custom-Estado">
+                        <option value="">Soltero(a)</option>
+                        <option>Casado(a)</option>
+                        <option>Divorciado(a)</option>
+                        <option>Viudo(a)</option>
+                    </select>,
+                    de oficio
+                    <input type="text" id="txtOficio" class="underlineOficio">,
+                    vecino de
+                   <input type="text" id="txtDireccion" class="underlineDireccion connected-input" 
+                           onkeyup="moveToNext(this, event)" maxlength="50" >,
+                    <input type="text" id="txtDireccion2" class="underlineDireccion2 connected-input" 
+                           onkeyup="moveToPrevious(this, event)" maxlength="50" >
+                  
+                    nacionalidad
+                    <input type="text" id="txtNacionalidad2" class="underlineNacionalidad">,
+                    <select id="ddlTipoId" class="dropdown-custom-Estado">
+                        <option value="">Cédula</option>                      
+                        <option>Pasaporte</option>
+                        <option>Otros</option>
+                    </select>,
+                    número
+                    <input type="text" id="txtCedula" class="underlineId">,
+                    teléfono celular
+                    <input type="tel" id="txtCelular" class="underlinetel1">,
+                    teléfono #2
+                    <input type="tel" id="txtTelefono2" class="underlinetel2">,
+                    correo electrónico #1
+                    <input type="email" id="txtEmail1" class="underlineCorreo1">,
+                    correo electrónico #2
+                    <input type="email" id="txtEmail2" class="underlineCorreo2">,
+                    en adelante denominado el "CLIENTE", la suma de
+                    <input type="text" id="txtMonto" class="underlineMontoLetras">,
+                    dólares EEUU (USD$ <input type="text" id="txtMontoUSD" class="underline" style="width:100px">).
+                    Este pago lo realiza el CLIENTE como reserva y a cuenta del precio de la casa finca filial
+                    <input type="text" id="txtNumeroCasa" class="underlineNumCasa" readonly>,
+                    con un lote de <input type="text" id="txtlote" class="underline-lote" readonly>
+                    y una casa tipo
+                    <select id="ddltipocasa" class="dropdown-Tipo-casa">
+                        <option value="">Tipo 1</option>
+                        <option value="2">Tipo 2</option>
+                        <option value="3A">Tipo 3-A</option>
+                        <option value="3B">Tipo 3-B</option>
+                    </select>
+                    del
+                    condominio Sundara, ubicado en San Joaquín de Flores de la Firestone 200 mts norte.
+                    <br /> 
+                    <b>El Proyecto tiene los siguientes tipos de casas:</b>
+                    <br />
+                    <b>Tipo 1)</b>:  De un nivel con 100.00 m2 de construcción, con un área de catastro de lote desde 112,00 m2.
+                    Consta de sala-comedor-cocina, lavandería, estacionamiento para dos vehículos y patio, habitación principal con su baño completo y walk-in closet, habitación secundaria y segundo baño completo.
+                    <br />
+                    <b>Tipo 2)</b>:  De dos niveles con 160.00 m2 de construcción, con un área de catastro de lote desde 110,00 m2.
+                    En primer piso consta de sala-comedor-cocina, medio baño de visitas, escalera, lavandería, estacionamiento para dos vehículos, bodega y patio; en el segundo piso consta de habitación principal con su baño completo y walk-in closet, segunda habitación, tercera habitación, área para televisión, segundo baño completo y escaleras.
+                    <br />
+                    <b> Tipo 3-A)</b> De dos niveles con 136.00 m2 de construcción, con un área de catastro de lote desde
+                    110,00 m2. En primer piso consta de sala-comedor-cocina, medio baño de visitas,
+                    escalera, lavandería, estacionamiento para dos vehículos, bodega y patio;
+                    en el segundo piso consta de habitación principal con su baño completo y walk-in closet,
+                    segunda habitación, área para televisión, segundo baño completo y escaleras.<br />
+                    <b>Tipo 3-B)</b> De dos niveles con 136.00 m2 de construcción, con un área de catastro de lote desde
+                    110,00 m2. En primer piso consta de sala-comedor-cocina, medio baño de visitas,
+                    escalera, lavandería, estacionamiento para dos vehículos, bodega y patio;
+                    en el segundo piso consta de habitación principal con su baño completo y walk-in closet,
+                    segunda habitación, tercera habitación, segundo baño completo y escaleras.
+                </div>
+            </div>
+        </div>
+        
+      
+        
+        <div id="pagina2" class="page-break">
+            <div class="page-indicator no-print text-end"></div>
+            <br />
+            <!-- PRIMERA: Precio y forma de pago -->
+            <u><b>PRIMERA</b></u>:
+            El precio de la casa es de <input type="text" class="underlineP">
+            00/100 dólares EEUU (USD$ <input type="text" id="TextBox0" class="underlineMontos">),
+            que serán pagados por EL CLIENTE de la siguiente manera:
+            <br />
+            
+            <table class="two-column-table">
+                <tr>
+                    <td class="left-column">- Un pago de Reserva el
+                        <input type="date" class="date-input" id="fechaReserva">
+                    </td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="txtmonto1" class="underlineMontos">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left-column">- Un pago para firma de Contrato el día
+                        <input type="date" class="date-input" id="fechaContrato">
+                    </td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="TextBox2" class="underlineMontos">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left-column">- 22 cuotas mensuales consecutivas el
+                        <input type="number" id="txtnumcuota" class="underlineNumcuota" min="1" max="31"> de cada mes
+                    </td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="TextBox3" class="underlineMontos">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left-column">- 2 cuotas extraordinarias c/u en los meses 12, 24 de</td>
+                    <td class="right-column">
+                        <div class="right-column-content">
+                            <span class="currency">USD$</span>
+                            <input type="text" id="TextBox4" class="underlineMontos">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <div class="custom-checkbox no-print">
+                <input type="checkbox" id="chbxAplicar" class="chbAplica">
+                <label for="chbxAplicar">Aplicar</label>
+            </div>
+            <br />
+            
+            <div id="pnlMensajeDescuento" class="mensaje-descuento" style="display:none;">
+                Reducción de precio: Sí y solo Sí, el cliente cumple con todas las fechas y montos establecidas en el
+                plan de pagos, se le reconocerá un descuento de USD
+                <input type="text" id="txtreduceprecio" class="underlineMontoLetras" style="width:100px">
+                al momento de la Formalización.
+            </div>
+            
+            La cancelación del saldo de formalización se hará a la firma de la escritura.
+            <br />
+            
+            <!-- SEGUNDA: -->
+            <u><b>SEGUNDA</b></u>:
+            Esta Reserva es intransferible y tiene una validez de 8 días naturales contados a partir de la fecha de su firma,
+            plazo dentro del cual EL CLIENTE deberá suscribir la Opción de Compra correspondiente.
+         
+            
+            <!-- TERCERA: -->
+            <br />
+            <u><b>TERCERA</b></u>:
+            Serán desistimientos unilaterales por parte del CLIENTE, los casos siguientes:
+            <ol>
+                <li class="list-item text-justify">
+                    EL CLIENTE, tendrá ocho días naturales para retirarse de la transacción sin ninguna penalidad, debiendo notificar por escrito al DESARROLLADOR en su oficina ubicada en Centro Corporativo Lindora, oficina 35, Pozos de Santa Ana. Por lo anterior se le devolverá el 100% del monto de esta Reserva. En el caso de que este pago se haya realizado por medio de tarjeta de crédito, se devolverá la reserva menos los costos por comisiones y otros gastos que cobre el Banco respectivo. De acuerdo a lo anterior, esta Reserva quedará anulada y el DESARROLLADOR quedará libre de toda responsabilidad y con el derecho de disponer libremente de la casa.
+                </li>
+                <li class="list-item text-justify">
+                    Después de transcurridos 8 días naturales desde la fecha de la firma de esta Reserva sin que se haya firmado Opción de Compra, EL CLIENTE notifica por escrito al DESARROLLADOR que desea retirarse del negocio, esta Reserva quedará anulada y el DESARROLLADOR quedará libre de toda responsabilidad y le dará derecho a tomar para sí el 50% del dinero recibido para gastos administrativos, comisiones de ventas y como penalidad, así como a disponer libremente de la casa.
+                </li>
+                <li class="list-item text-justify">
+                    Si transcurrido el plazo de 15 días naturales de validez de esta Reserva EL CLIENTE no se presenta a suscribir el contrato de Opción de Compra, esta Reserva quedará anulada y EL DESARROLLADOR tendrá derecho a tomar para sí el 100% del dinero recibido y a disponer libremente de la casa.
+                </li>
+            </ol>
+        </div>
+        
+        <div id="pagina3" class="page-break">
+            <div class="page-indicator no-print text-end"></div>
+            
+            <!-- CUARTA:  -->
+            <u><b>CUARTA</b></u>:
+            Desistimiento unilateral por parte del DESARROLLADOR:
+            En caso de que Urbano Condominio S.A. desista de la presente Reserva procederá a notificar
+            mediante correo electrónico y deberá reintegrar a EL CLIENTE en un lapso de 8 días naturales, la cantidad
+            recibida más un monto equivalente al 100% del dinero recibido en esta Reserva como indemnización total por
+            daños y perjuicios a favor de EL CLIENTE; en este caso esta Reserva quedará anulada y EL DESARROLLADOR
+            tendrá derecho a disponer libremente de la casa.
+            En el caso de que el Fiduciario no acepte a EL CLIENTE para incorporarse al Fideicomiso de Primas,
+            se procederá a la devolución a EL CLIENTE del monto pagado por este último en un plazo de 30 días, menos los
+            gastos de comisión de tarjeta de credito si los hubiere, sin que el DESARROLLADOR deba pagar alguna indemnización a EL CLIENTE.
+            <br />
+            
+            <!-- QUINTA:  -->
+            <u><b>QUINTA:</b></u>
+            Para efectos de pagos, depósitos, reintegros o devoluciones ambas partes se autorizan mutuamente para que se efectúen en las cuentas siguientes:<br />
+            EL DESARROLLADOR: Banco Nacional <b><u>I Etapa: IBAN CR48015100010026234639</u></b>, Banco Nacional <b><u>II Etapa IBAN CR39015100010026234898</u></b>.<br />
+            EL CLIENTE: Banco <input type="text" id="txtBancoCliente" class="underline" style="width:150px">
+            N° de cuenta <input type="text" id="txtCuentaCliente" class="underlineCuentaCliente"><br />
+            <b>Para transferencias al exterior completar:</b><br />
+            Dueño de la cuenta: <input type="text" id="txtDueñoCuenta" class="underline" style="width:200px">
+            Cuenta N°: <input type="text" id="txtCuentaExterior" class="underline" style="width:150px"><br />
+            Nombre del banco: <input type="text" id="txtNombreBanco" class="underline" style="width:200px"><br />
+            ABA: <input type="text" id="txtABA" class="underline" style="width:100px">
+            SWIFT: <input type="text" id="txtSWIFT" class="underline" style="width:100px"><br />
+            Dirección del banco: <input type="text" id="txtDireccionBanco" class="underline-direcionbanco" style="width:300px">
+            <br />
+            
+            <!-- SEXTA:  -->
+            <u><b>SEXTA:</b></u>
+            Durante el transcurso de toda la operación de compraventa y también
+            posteriormente, ambas partes, tanto el DESARROLLADOR como el CLIENTE están
+            obligados al cumplimiento de todas las leyes y normas que dicta la Superintendencia
+            General de Entidades Financieras (SUGEF). Por disposición de la SUGEF se incluye
+            el párrafo siguiente: "Se advierte al público que Urbano Condominio Sociedad
+            Anónima es supervisada solamente en materia de prevención de legitimación
+            de capitales, financiamiento al terrorismo y financiamiento de la proliferación de armas
+            de destrucción masiva, y además se encuentra sujeta a disposiciones vinculantes de
+            la Unidad de Inteligencia Financiera del Instituto Costarricense sobre Drogas. Por lo
+            tanto, la SUGEF no supervisa en materia financiera a Urbano Condominio Sociedad
+            Anónima, ni los negocios que ofrece, ni su seguridad, estabilidad o solvencia."
+            Con la firma de este documento de reserva el cliente se obliga a entregar copia y/o los
+            documentos y/o formularios firmados requeridos a continuación:
+            
+            <!-- FECHA Y FIRMA  -->
+            <br />
+            De acuerdo con todo lo anterior, firmamos en San José el día
+            <select id="ddldia" class="dropdown-custom-Dia">
+                <option value="">Día</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+                <option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
+                <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option>
+                <option>26</option><option>27</option><option>28</option><option>29</option><option>30</option>
+                <option>31</option>
+            </select>
+            del mes de
+            <select id="ddlmes" class="dropdown-custom-Mes">
+                <option value="">Mes</option>
+                <option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option>
+                <option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option>
+                <option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+            </select>
+            de
+            <select id="ddlano" class="dropdown-custom-Ano">
+                <option value="">Año</option>
+                <option>2024</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option>
+            </select>.
+           <br />
+              <br />
+            <br />
+              <br />
+            <div class="signature-section">
+                <!-- Firma izquierda -->
+                <div class="signature-area">
+                    <div class="signature-line"></div>
+                    <div class="signature-name">EL CLIENTE</div>
+                </div>
+                
+                <!-- Firma derecha -->
+                <div class="signature-area">
+                    <div class="signature-line"></div>
+                    <div class="signature-name">URBANO CONDOMINIO S.A.</div>
+                    <div class="signature-info">Cédula Jurídica 3-101-806533</div>
+                    <div class="signature-info">EL DESARROLLADOR</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+   <footer class="no-print fixed-bottom bg-secondary text-white text-center py-2">
+    © 2026 Sundara — Todos los derechos reservados
+</footer>
+
+
+    <!-- Scripts -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Funciones del formulario -->
+    <script src="js/form-functions.js"></script>
+    
+    <!-- Generador de PDF -->
+    <script src="js/pdf-generator.js"></script>
+</body>
+</html>
